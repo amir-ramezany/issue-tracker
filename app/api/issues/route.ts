@@ -1,12 +1,6 @@
+import { createIssueSchema } from "@/app/validationSchemas";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const createIssueSchema = z.object({
-  // just need title and description //others are default existed in our db
-  title: z.string().min(1, "Title is required.").max(255),
-  description: z.string().min(1, "Description is required."),
-});
 
 //api for creating isuue and save to db
 export async function POST(requset: NextRequest) {
