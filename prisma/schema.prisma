@@ -10,8 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// isuee our table -- and id title and .. is our fields or coulumns 
-model Isuue {
+// issue our table -- and id title and .. is our fields or coulumns 
+model Issue {
   id          Int      @id @default(autoincrement())
   title       String   @db.VarChar(225)
   description String   @db.Text
