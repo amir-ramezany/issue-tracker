@@ -4,8 +4,8 @@ import { z } from "zod";
 
 const createIssueSchema = z.object({
   // just need title and description //others are default existed in our db
-  title: z.string().min(1).max(255),
-  description: z.string().min(1),
+  title: z.string().min(1, "Title is required.").max(255),
+  description: z.string().min(1, "Description is required."),
 });
 
 //api for creating isuue and save to db
@@ -13,7 +13,7 @@ export async function POST(requset: NextRequest) {
   const body = await requset.json();
   const validation = createIssueSchema.safeParse(body);
   if (!validation.success) {
-    return NextResponse.json(validation.error.errors, { status: 400 }); //bad -- request
+    return NextResponse.json(validation.error.format(), { status: 400 }); //bad -- request
   }
   const newIssue = await prisma.issue.create({
     data: { title: body.title, description: body.description },
